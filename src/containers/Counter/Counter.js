@@ -4,30 +4,11 @@ import CounterOutput from '../../components/CounterOutput/CounterOutput';
 
 //Redux State
 import { connect } from 'react-redux'
-
-import * as actionTypes from '../../store/actions'
+//Combined Actions 
+import * as actions from '../../store/actions/actions'
 
 class Counter extends Component {
-    state = {
-        counter: 0
-    }
-
-    counterChangedHandler = ( action, value ) => {
-        switch ( action ) {
-            case 'inc':
-                this.setState( ( prevState ) => { return { counter: prevState.counter + 1 } } )
-                break;
-            case 'dec':
-                this.setState( ( prevState ) => { return { counter: prevState.counter - 1 } } )
-                break;
-            case 'add':
-                this.setState( ( prevState ) => { return { counter: prevState.counter + value } } )
-                break;
-            case 'sub':
-                this.setState( ( prevState ) => { return { counter: prevState.counter - value } } )
-                break;
-        }
-    }
+   
 
     render () {
         return (
@@ -68,13 +49,12 @@ const mapStateToProps = state =>
 const mapDispatchToProps = dispatch =>
 {
     return {
-        onIncrement: () => dispatch({ type: actionTypes.INCREMENT}),
-        onDecrement: () => dispatch({type:actionTypes.DECREMENT}),
-        onAdd: () => dispatch({type:actionTypes.ADD, payload: 10}),
-        onSubract: () => dispatch({ type: actionTypes.SUBRACT, payload: 15 }),
-        onStore: (globalState) => dispatch({type:actionTypes.STORE, payload:globalState}),
-        onDelete: (id) => dispatch({type:actionTypes.DELETE, payload:id}),
-
+        onIncrement: () => dispatch(actions.increment()),
+        onDecrement: () => dispatch(actions.decrement()),
+        onAdd: () => dispatch(actions.add(10)),
+        onSubract: () => dispatch(actions.subract(15)),
+        onStore: (globalState) => dispatch(actions.storeResult(globalState)),
+        onDelete: (id) => dispatch(actions.deleteResult(id))
     }
 }
 
